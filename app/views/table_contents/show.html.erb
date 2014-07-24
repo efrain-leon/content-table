@@ -1,24 +1,27 @@
-<p id="notice"><%= notice %></p>
+<%- model_class = TableContent -%>
+<div class="page-header">
+  <h1><%=t '.title', :default => model_class.model_name.human.titleize %></h1>
+</div>
 
-<p>
-  <strong>Content:</strong>
-  <%= @table_content.content %>
-</p>
+<dl class="dl-horizontal">
+  <dt><strong><%= model_class.human_attribute_name(:content) %>:</strong></dt>
+  <dd><%= @table_content.content %></dd>
+  <dt><strong><%= model_class.human_attribute_name(:level) %>:</strong></dt>
+  <dd><%= @table_content.level %></dd>
+  <dt><strong><%= model_class.human_attribute_name(:order) %>:</strong></dt>
+  <dd><%= @table_content.order %></dd>
+  <dt><strong><%= model_class.human_attribute_name(:id_book) %>:</strong></dt>
+  <dd><%= @table_content.id_book %></dd>
+</dl>
 
-<p>
-  <strong>Level:</strong>
-  <%= @table_content.level %>
-</p>
-
-<p>
-  <strong>Order:</strong>
-  <%= @table_content.order %>
-</p>
-
-<p>
-  <strong>Id book:</strong>
-  <%= @table_content.id_book %>
-</p>
-
-<%= link_to 'Edit', edit_table_content_path(@table_content) %> |
-<%= link_to 'Back', table_contents_path %>
+<div class="form-actions">
+  <%= link_to t('.back', :default => t("helpers.links.back")),
+              table_contents_path, :class => 'btn'  %>
+  <%= link_to t('.edit', :default => t("helpers.links.edit")),
+              edit_table_content_path(@table_content), :class => 'btn' %>
+  <%= link_to t('.destroy', :default => t("helpers.links.destroy")),
+              table_content_path(@table_content),
+              :method => 'delete',
+              :data => { :confirm => t('.confirm', :default => t("helpers.links.confirm", :default => 'Are you sure?')) },
+              :class => 'btn btn-danger' %>
+</div>
