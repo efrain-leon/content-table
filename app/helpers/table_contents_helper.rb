@@ -1,0 +1,2 @@
+module TableContentsHelper
+end

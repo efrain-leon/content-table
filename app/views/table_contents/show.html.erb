@@ -1,0 +1,24 @@
+<p id="notice"><%= notice %></p>
+
+<p>
+  <strong>Content:</strong>
+  <%= @table_content.content %>
+</p>
+
+<p>
+  <strong>Level:</strong>
+  <%= @table_content.level %>
+</p>
+
+<p>
+  <strong>Order:</strong>
+  <%= @table_content.order %>
+</p>
+
+<p>
+  <strong>Id book:</strong>
+  <%= @table_content.id_book %>
+</p>
+
+<%= link_to 'Edit', edit_table_content_path(@table_content) %> |
+<%= link_to 'Back', table_contents_path %>
