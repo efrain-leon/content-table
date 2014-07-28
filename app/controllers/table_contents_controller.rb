@@ -1,30 +1,22 @@
 class TableContentsController < ApplicationController
   before_action :set_table_content, only: [:show, :edit, :update, :destroy]
 
-  # GET /table_contents
-  # GET /table_contents.json
   def index
     @book = Book.find(params[:book_id])
     @table_contents = @book.table_contents
   end
 
-  # GET /table_contents/1
-  # GET /table_contents/1.json
   def show
   end
 
-  # GET /table_contents/new
   def new
     @book = Book.find(params[:book_id])
     @table_content = @book.table_contents.new
   end
 
-  # GET /table_contents/1/edit
   def edit
   end
 
-  # POST /table_contents
-  # POST /table_contents.json
   def create
     @book = Book.find(params[:book_id])
     @table_content = @book.table_contents.new(table_content_params)
@@ -40,8 +32,6 @@ class TableContentsController < ApplicationController
     end
   end
 
-  # PATCH/PUT /table_contents/1
-  # PATCH/PUT /table_contents/1.json
   def update
     respond_to do |format|
       if @table_content.update(table_content_params)
@@ -54,8 +44,6 @@ class TableContentsController < ApplicationController
     end
   end
 
-  # DELETE /table_contents/1
-  # DELETE /table_contents/1.json
   def destroy
     @table_content.destroy
     respond_to do |format|
@@ -65,14 +53,12 @@ class TableContentsController < ApplicationController
   end
 
   private
-    # Use callbacks to share common setup or constraints between actions.
     def set_table_content
       @book = Book.find(params[:book_id])
       @table_content = TableContent.find(params[:id])
     end
-
-    # Never trust parameters from the scary internet, only allow the white list through.
+    
     def table_content_params
-      params.require(:table_content).permit(:content, :level, :order, :id_book)
+      params.require(:table_content).permit(:content, :level, :order, :book_id)
     end
 end
