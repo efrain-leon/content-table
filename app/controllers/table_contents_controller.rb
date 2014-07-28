@@ -4,7 +4,8 @@ class TableContentsController < ApplicationController
   # GET /table_contents
   # GET /table_contents.json
   def index
-    @table_contents = TableContent.all
+    @book = Book.find(params[:book_id])
+    @table_contents = @book.table_contents
   end
 
   # GET /table_contents/1
@@ -14,7 +15,8 @@ class TableContentsController < ApplicationController
 
   # GET /table_contents/new
   def new
-    @table_content = TableContent.new
+    @book = Book.find(params[:book_id])
+    @table_content = @book.table_contents.new
   end
 
   # GET /table_contents/1/edit
@@ -24,11 +26,12 @@ class TableContentsController < ApplicationController
   # POST /table_contents
   # POST /table_contents.json
   def create
-    @table_content = TableContent.new(table_content_params)
+    @book = Book.find(params[:book_id])
+    @table_content = @book.table_contents.new(table_content_params)
 
     respond_to do |format|
       if @table_content.save
-        format.html { redirect_to @table_content, notice: 'Table content was successfully created.' }
+        format.html { redirect_to book_table_contents_path(@book), notice: 'Table content was successfully created.' }
         format.json { render :show, status: :created, location: @table_content }
       else
         format.html { render :new }
@@ -42,7 +45,7 @@ class TableContentsController < ApplicationController
   def update
     respond_to do |format|
       if @table_content.update(table_content_params)
-        format.html { redirect_to @table_content, notice: 'Table content was successfully updated.' }
+        format.html { redirect_to book_table_contents_path(@book), notice: 'Table content was successfully updated.' }
         format.json { render :show, status: :ok, location: @table_content }
       else
         format.html { render :edit }
@@ -56,7 +59,7 @@ class TableContentsController < ApplicationController
   def destroy
     @table_content.destroy
     respond_to do |format|
-      format.html { redirect_to table_contents_url, notice: 'Table content was successfully destroyed.' }
+      format.html { redirect_to book_table_contents_path(@book), notice: 'Table content was successfully destroyed.' }
       format.json { head :no_content }
     end
   end
@@ -64,6 +67,7 @@ class TableContentsController < ApplicationController
   private
     # Use callbacks to share common setup or constraints between actions.
     def set_table_content
+      @book = Book.find(params[:book_id])
       @table_content = TableContent.find(params[:id])
     end
 

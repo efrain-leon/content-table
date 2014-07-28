@@ -2,6 +2,6 @@
 
 FactoryGirl.define do
   factory :book do
-    title "MyString"
+    title "Test book"
   end
 end

@@ -5,29 +5,25 @@
 <table class="table table-striped">
   <thead>
     <tr>
-      <th><%= model_class.human_attribute_name(:id) %></th>
       <th><%= model_class.human_attribute_name(:content) %></th>
       <th><%= model_class.human_attribute_name(:level) %></th>
       <th><%= model_class.human_attribute_name(:order) %></th>
       <th><%= model_class.human_attribute_name(:id_book) %></th>
-      <th><%= model_class.human_attribute_name(:created_at) %></th>
       <th><%=t '.actions', :default => t("helpers.actions") %></th>
     </tr>
   </thead>
   <tbody>
     <% @table_contents.each do |table_content| %>
       <tr>
-        <td><%= link_to table_content.id, table_content_path(table_content) %></td>
         <td><%= table_content.content %></td>
         <td><%= table_content.level %></td>
         <td><%= table_content.order %></td>
-        <td><%= table_content.id_book %></td>
-        <td><%=l table_content.created_at %></td>
+        <td><%= table_content.book_id %></td>
         <td>
           <%= link_to t('.edit', :default => t("helpers.links.edit")),
-                      edit_table_content_path(table_content), :class => 'btn btn-mini' %>
+                      edit_book_table_content_path(@book, table_content), :class => 'btn btn-mini' %>
           <%= link_to t('.destroy', :default => t("helpers.links.destroy")),
-                      table_content_path(table_content),
+                      book_table_content_path(@book, table_content),
                       :method => :delete,
                       :data => { :confirm => t('.confirm', :default => t("helpers.links.confirm", :default => 'Are you sure?')) },
                       :class => 'btn btn-mini btn-danger' %>
@@ -38,5 +34,5 @@
 </table>
 
 <%= link_to t('.new', :default => t("helpers.links.new")),
-            new_table_content_path,
+            new_book_table_content_path(@book),
             :class => 'btn btn-primary' %>

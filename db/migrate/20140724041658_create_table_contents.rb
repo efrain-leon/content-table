@@ -4,7 +4,7 @@ class CreateTableContents < ActiveRecord::Migration
       t.string :content
       t.integer :level
       t.integer :order
-      t.integer :id_book
+      t.integer :book_id
 
       t.timestamps
     end

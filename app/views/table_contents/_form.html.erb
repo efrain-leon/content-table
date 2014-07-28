@@ -1,4 +1,4 @@
-<%= form_for @table_content, :html => { :class => 'form-horizontal' } do |f| %>
+<%= form_for ([@table_content.book, @table_content]), :html => { :class => 'form-horizontal' } do |f| %>
   <div class="control-group">
     <%= f.label :content, :class => 'control-label' %>
     <div class="controls">
@@ -8,25 +8,19 @@
   <div class="control-group">
     <%= f.label :level, :class => 'control-label' %>
     <div class="controls">
-      <%= f.text_field :level, :class => 'text_field' %>
+      <%= f.number_field :level, :class => 'text_field' %>
     </div>
   </div>
   <div class="control-group">
     <%= f.label :order, :class => 'control-label' %>
     <div class="controls">
-      <%= f.text_field :order, :class => 'text_field' %>
-    </div>
-  </div>
-  <div class="control-group">
-    <%= f.label :id_book, :class => 'control-label' %>
-    <div class="controls">
-      <%= f.text_field :id_book, :class => 'text_field' %>
+      <%= f.number_field :order, :class => 'text_field' %>
     </div>
   </div>
 
   <div class="form-actions">
-    <%= f.submit nil, :class => 'btn btn-primary' %>
+    <%= f.submit 'Update', :class => 'btn btn-primary' %>
     <%= link_to t('.cancel', :default => t("helpers.links.cancel")),
-                table_contents_path, :class => 'btn' %>
+                book_table_contents_path(@table_content.book), :class => 'btn' %>
   </div>
 <% end %>

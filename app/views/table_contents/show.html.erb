@@ -10,17 +10,15 @@
   <dd><%= @table_content.level %></dd>
   <dt><strong><%= model_class.human_attribute_name(:order) %>:</strong></dt>
   <dd><%= @table_content.order %></dd>
-  <dt><strong><%= model_class.human_attribute_name(:id_book) %>:</strong></dt>
-  <dd><%= @table_content.id_book %></dd>
 </dl>
 
 <div class="form-actions">
   <%= link_to t('.back', :default => t("helpers.links.back")),
-              table_contents_path, :class => 'btn'  %>
+              book_table_contents_path(@book), :class => 'btn'  %>
   <%= link_to t('.edit', :default => t("helpers.links.edit")),
-              edit_table_content_path(@table_content), :class => 'btn' %>
+              edit_book_table_content_path(@book, @table_content), :class => 'btn' %>
   <%= link_to t('.destroy', :default => t("helpers.links.destroy")),
-              table_content_path(@table_content),
+              book_table_content_path(@book, @table_content),
               :method => 'delete',
               :data => { :confirm => t('.confirm', :default => t("helpers.links.confirm", :default => 'Are you sure?')) },
               :class => 'btn btn-danger' %>

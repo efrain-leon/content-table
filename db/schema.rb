@@ -23,7 +23,7 @@ ActiveRecord::Schema.define(version: 20140724041658) do
     t.string   "content"
     t.integer  "level"
     t.integer  "order"
-    t.integer  "id_book"
+    t.integer  "book_id"
     t.datetime "created_at"
     t.datetime "updated_at"
   end
