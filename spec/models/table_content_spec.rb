@@ -9,4 +9,5 @@ RSpec.describe TableContent, :type => :model do
   it { table_content.should validate_presence_of(:level) }
   it { table_content.should validate_presence_of(:order) }
   it { table_content.should validate_presence_of(:book_id) }
+  it { table_content.should validate_uniqueness_of(:order) }
 end
