@@ -5,6 +5,6 @@ FactoryGirl.define do
     content "MyString"
     level 1
     order 1
-    id_book 1
+    book_id 1
   end
 end

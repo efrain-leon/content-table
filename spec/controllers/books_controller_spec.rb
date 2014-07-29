@@ -90,12 +90,12 @@ RSpec.describe BooksController, :type => :controller do
     describe "with invalid params" do
       it "assigns a newly created but unsaved book as @book" do
         post :create, {:book => invalid_attributes}, valid_session
-        #expect(assigns(:book)).to be_a_new(Book)
+        expect(assigns(:book)).to be_a_new(Book)
       end
 
       it "re-renders the 'new' template" do
         post :create, {:book => invalid_attributes}, valid_session
-        #expect(response).to render_template("new")
+        expect(response).to render_template("new")
       end
     end
   end
@@ -110,7 +110,7 @@ RSpec.describe BooksController, :type => :controller do
         book = Book.create! valid_attributes
         put :update, {:id => book.to_param, :book => new_attributes}, valid_session
         book.reload
-        skip("Add assertions for updated state")
+        expect(assigns(:book)).to eq(book)
       end
 
       it "assigns the requested book as @book" do

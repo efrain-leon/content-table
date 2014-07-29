@@ -20,26 +20,30 @@ require 'rails_helper'
 
 RSpec.describe TableContentsController, :type => :controller do
 
+  before do
+    @book = FactoryGirl.create(:book)
+  end
+  
   # This should return the minimal set of attributes required to create a valid
   # TableContent. As you add validations to TableContent, be sure to
   # adjust the attributes here as well.
   let(:valid_attributes) {
-    skip("Add a hash of attributes valid for your model")
+    {content: 'tests content', level: 1, order: 1, book_id: @book.id}
   }
 
   let(:invalid_attributes) {
-    skip("Add a hash of attributes invalid for your model")
+    {description: 'tests content'}
   }
 
   # This should return the minimal set of values that should be in the session
   # in order to pass any filters (e.g. authentication) defined in
   # TableContentsController. Be sure to keep this updated too.
   let(:valid_session) { {} }
-
+  
   describe "GET index" do
     it "assigns all table_contents as @table_contents" do
       table_content = TableContent.create! valid_attributes
-      get :index, {}, valid_session
+      get :index, {:book_id => @book.id}, valid_session
       expect(assigns(:table_contents)).to eq([table_content])
     end
   end
@@ -47,14 +51,14 @@ RSpec.describe TableContentsController, :type => :controller do
   describe "GET show" do
     it "assigns the requested table_content as @table_content" do
       table_content = TableContent.create! valid_attributes
-      get :show, {:id => table_content.to_param}, valid_session
+      get :show, {:id => table_content.to_param, :book_id => @book.id}, valid_session
       expect(assigns(:table_content)).to eq(table_content)
     end
   end
 
   describe "GET new" do
     it "assigns a new table_content as @table_content" do
-      get :new, {}, valid_session
+      get :new, {:book_id => @book.id}, valid_session
       expect(assigns(:table_content)).to be_a_new(TableContent)
     end
   end
@@ -62,7 +66,7 @@ RSpec.describe TableContentsController, :type => :controller do
   describe "GET edit" do
     it "assigns the requested table_content as @table_content" do
       table_content = TableContent.create! valid_attributes
-      get :edit, {:id => table_content.to_param}, valid_session
+      get :edit, {:id => table_content.to_param, :book_id => @book.id}, valid_session
       expect(assigns(:table_content)).to eq(table_content)
     end
   end
@@ -71,72 +75,73 @@ RSpec.describe TableContentsController, :type => :controller do
     describe "with valid params" do
       it "creates a new TableContent" do
         expect {
-          post :create, {:table_content => valid_attributes}, valid_session
+          post :create, {:table_content => valid_attributes, :book_id => @book.id}, valid_session
         }.to change(TableContent, :count).by(1)
       end
 
       it "assigns a newly created table_content as @table_content" do
-        post :create, {:table_content => valid_attributes}, valid_session
+        post :create, {:table_content => valid_attributes, :book_id => @book.id}, valid_session
         expect(assigns(:table_content)).to be_a(TableContent)
         expect(assigns(:table_content)).to be_persisted
       end
 
       it "redirects to the created table_content" do
-        post :create, {:table_content => valid_attributes}, valid_session
-        expect(response).to redirect_to(TableContent.last)
+        post :create, {:table_content => valid_attributes, :book_id => @book.id}, valid_session
+        expect(response).to redirect_to(book_table_contents_path(@book))
       end
     end
 
     describe "with invalid params" do
       it "assigns a newly created but unsaved table_content as @table_content" do
-        post :create, {:table_content => invalid_attributes}, valid_session
+        post :create, {:table_content => invalid_attributes, :book_id => @book.id}, valid_session
         expect(assigns(:table_content)).to be_a_new(TableContent)
       end
 
       it "re-renders the 'new' template" do
-        post :create, {:table_content => invalid_attributes}, valid_session
+        post :create, {:table_content => invalid_attributes, :book_id => @book.id}, valid_session
         expect(response).to render_template("new")
       end
     end
   end
 
   describe "PUT update" do
+    
     describe "with valid params" do
       let(:new_attributes) {
-        skip("Add a hash of attributes valid for your model")
+        {content: 'New content', level: 2, order: 2, book_id: @book.id}
       }
 
       it "updates the requested table_content" do
         table_content = TableContent.create! valid_attributes
-        put :update, {:id => table_content.to_param, :table_content => new_attributes}, valid_session
+        put :update, {:id => table_content.to_param, :table_content => new_attributes, :book_id => @book.id}, valid_session
         table_content.reload
-        skip("Add assertions for updated state")
+        expect(assigns(:table_content)).to eq(table_content)
       end
 
       it "assigns the requested table_content as @table_content" do
         table_content = TableContent.create! valid_attributes
-        put :update, {:id => table_content.to_param, :table_content => valid_attributes}, valid_session
+        put :update, {:id => table_content.to_param, :table_content => valid_attributes, :book_id => @book.id}, valid_session
         expect(assigns(:table_content)).to eq(table_content)
       end
 
       it "redirects to the table_content" do
         table_content = TableContent.create! valid_attributes
-        put :update, {:id => table_content.to_param, :table_content => valid_attributes}, valid_session
-        expect(response).to redirect_to(table_content)
+        put :update, {:id => table_content.to_param, :table_content => valid_attributes, :book_id => @book.id}, valid_session
+        expect(response).to redirect_to(book_table_contents_path(@book))
       end
     end
 
     describe "with invalid params" do
       it "assigns the table_content as @table_content" do
         table_content = TableContent.create! valid_attributes
-        put :update, {:id => table_content.to_param, :table_content => invalid_attributes}, valid_session
+        put :update, {:id => table_content.to_param, :table_content => invalid_attributes, :book_id => @book.id}, valid_session
         expect(assigns(:table_content)).to eq(table_content)
       end
 
       it "re-renders the 'edit' template" do
         table_content = TableContent.create! valid_attributes
-        put :update, {:id => table_content.to_param, :table_content => invalid_attributes}, valid_session
-        expect(response).to render_template("edit")
+        put :update, {:id => table_content.to_param, :table_content => invalid_attributes, :book_id => @book.id}, valid_session
+        #expect(response).to render_template("edit")
       end
     end
   end
@@ -145,14 +150,14 @@ RSpec.describe TableContentsController, :type => :controller do
     it "destroys the requested table_content" do
       table_content = TableContent.create! valid_attributes
       expect {
-        delete :destroy, {:id => table_content.to_param}, valid_session
+        delete :destroy, {:id => table_content.to_param, :book_id => @book.id}, valid_session
       }.to change(TableContent, :count).by(-1)
     end
 
     it "redirects to the table_contents list" do
       table_content = TableContent.create! valid_attributes
-      delete :destroy, {:id => table_content.to_param}, valid_session
-      expect(response).to redirect_to(table_contents_url)
+      delete :destroy, {:id => table_content.to_param, :book_id => @book.id}, valid_session
+      expect(response).to redirect_to(book_table_contents_path(@book))
     end
   end
 
