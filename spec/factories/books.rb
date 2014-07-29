@@ -2,6 +2,6 @@
 
 FactoryGirl.define do
   factory :book do
-    title "Test book"
+    sequence(:title) {|n| "test book#{n}"}
   end
 end

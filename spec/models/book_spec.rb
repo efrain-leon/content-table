@@ -6,4 +6,5 @@ RSpec.describe Book, :type => :model do
   it { book.should be_a(Book) }
   it { book.should have_many(:table_contents).dependent(:destroy) }
   it { book.should validate_presence_of(:title) }
+  it { book.should validate_uniqueness_of(:title) }
 end
